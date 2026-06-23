@@ -38,6 +38,11 @@ class Aschroder_SMTPPro_Model_Email extends Mage_Core_Model_Email {
         $mail->setFrom($this->getFromEmail(), $this->getFromName())
             ->addTo($this->getToEmail(), $this->getToName())
             ->setSubject($this->getSubject());
+        $domain = substr(strstr($this->getFromEmail(), '@'), 1);
+        if (!$domain) {
+            $domain = parse_url(Mage::getStoreConfig('web/unsecure/base_url'), PHP_URL_HOST);
+        }
+        $mail->setMessageId('<' . time() . '.' . uniqid('', true) . '@' . $domain . '>');
 
         $transport = new Varien_Object(); // for observers to set if required
         Mage::dispatchEvent('aschroder_smtppro_before_send', array(
