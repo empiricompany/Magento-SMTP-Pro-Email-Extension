@@ -84,11 +84,7 @@ class Aschroder_SMTPPro_Model_Email_Queue extends Mage_Core_Model_Email_Queue {
                 if ($parameters->getReturnTo() !== null) {
                     $mailer->setReturnPath($parameters->getReturnTo());
                 }
-                $domain = substr(strstr($parameters->getFromEmail(), '@'), 1);
-                if (!$domain) {
-                    $domain = parse_url(Mage::getStoreConfig('web/unsecure/base_url'), PHP_URL_HOST);
-                }
-                $mailer->setMessageId('<' . time() . '.' . uniqid('', true) . '@' . $domain . '>');
+                $mailer->setMessageId($_helper->generateMessageId($parameters->getFromEmail()));
 
                 try {
 

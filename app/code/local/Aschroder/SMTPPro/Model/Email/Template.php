@@ -117,11 +117,7 @@ class Aschroder_SMTPPro_Model_Email_Template extends Mage_Core_Model_Email_Templ
 
         $mail->setSubject('=?utf-8?B?' . base64_encode($subject) . '?=');
         $mail->setFrom($this->getSenderEmail(), $this->getSenderName());
-        $domain = substr(strstr($this->getSenderEmail(), '@'), 1);
-        if (!$domain) {
-            $domain = parse_url(Mage::getStoreConfig('web/unsecure/base_url'), PHP_URL_HOST);
-        }
-        $mail->setMessageId('<' . time() . '.' . uniqid('', true) . '@' . $domain . '>');
+        $mail->setMessageId($_helper->generateMessageId($this->getSenderEmail()));
 
         try {
 

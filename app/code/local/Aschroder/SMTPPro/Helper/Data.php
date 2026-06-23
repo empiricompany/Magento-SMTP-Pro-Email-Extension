@@ -184,6 +184,29 @@ class Aschroder_SMTPPro_Helper_Data extends Mage_Core_Helper_Abstract
         return Mage::getStoreConfig('smtppro/queue/pause', $storeId);
     }
 
+    public function getMessageIdDomain($senderEmail)
+    {
+        $domain = null;
+        if (is_string($senderEmail)) {
+            $senderParts = explode('@', $senderEmail, 2);
+            if (count($senderParts) === 2 && $senderParts[1]) {
+                $domain = $senderParts[1];
+            }
+        }
+        if (!$domain) {
+            $domain = parse_url(Mage::getStoreConfig('web/unsecure/base_url'), PHP_URL_HOST);
+        }
+        if (!$domain) {
+            $domain = 'localhost';
+        }
+        return $domain;
+    }
+
+    public function generateMessageId($senderEmail)
+    {
+        return '<' . time() . '.' . uniqid('', true) . '@' . $this->getMessageIdDomain($senderEmail) . '>';
+    }
+
 
     // These are not the droids you're looking for...
 
