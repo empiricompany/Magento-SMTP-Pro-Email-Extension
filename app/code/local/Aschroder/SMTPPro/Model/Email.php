@@ -30,9 +30,9 @@ class Aschroder_SMTPPro_Model_Email extends Mage_Core_Model_Email {
         $mail = new Zend_Mail($charset);
 
         if (strtolower($this->getType()) == 'html') {
-            $mail->setBodyHtml($this->getBody());
+            $mail->setBodyHtml($this->getBody(), 'utf-8', Zend_Mime::ENCODING_QUOTEDPRINTABLE);
         } else {
-            $mail->setBodyText($this->getBody());
+            $mail->setBodyText($this->getBody(), 'utf-8', Zend_Mime::ENCODING_QUOTEDPRINTABLE);
         }
 
         $mail->setFrom($this->getFromEmail(), $this->getFromName())

@@ -71,9 +71,9 @@ class Aschroder_SMTPPro_Model_Email_Queue extends Mage_Core_Model_Email_Queue {
                 }
 
                 if ($parameters->getIsPlain()) {
-                    $mailer->setBodyText($message->getMessageBody());
+                    $mailer->setBodyText($message->getMessageBody(), 'utf-8', Zend_Mime::ENCODING_QUOTEDPRINTABLE);
                 } else {
-                    $mailer->setBodyHTML($message->getMessageBody());
+                    $mailer->setBodyHTML($message->getMessageBody(), 'utf-8', Zend_Mime::ENCODING_QUOTEDPRINTABLE);
                 }
 
                 $mailer->setSubject('=?utf-8?B?' . base64_encode($parameters->getSubject()) . '?=');
