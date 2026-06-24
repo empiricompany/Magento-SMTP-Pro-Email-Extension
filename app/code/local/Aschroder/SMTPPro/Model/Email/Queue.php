@@ -84,6 +84,7 @@ class Aschroder_SMTPPro_Model_Email_Queue extends Mage_Core_Model_Email_Queue {
                 if ($parameters->getReturnTo() !== null) {
                     $mailer->setReturnPath($parameters->getReturnTo());
                 }
+                $mailer->setMessageId($_helper->generateMessageId($parameters->getFromEmail()));
 
                 try {
 

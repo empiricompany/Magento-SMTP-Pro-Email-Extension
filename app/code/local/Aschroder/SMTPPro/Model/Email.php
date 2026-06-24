@@ -38,6 +38,7 @@ class Aschroder_SMTPPro_Model_Email extends Mage_Core_Model_Email {
         $mail->setFrom($this->getFromEmail(), $this->getFromName())
             ->addTo($this->getToEmail(), $this->getToName())
             ->setSubject($this->getSubject());
+        $mail->setMessageId($_helper->generateMessageId($this->getFromEmail()));
 
         $transport = new Varien_Object(); // for observers to set if required
         Mage::dispatchEvent('aschroder_smtppro_before_send', array(

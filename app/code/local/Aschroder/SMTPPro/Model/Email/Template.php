@@ -117,6 +117,7 @@ class Aschroder_SMTPPro_Model_Email_Template extends Mage_Core_Model_Email_Templ
 
         $mail->setSubject('=?utf-8?B?' . base64_encode($subject) . '?=');
         $mail->setFrom($this->getSenderEmail(), $this->getSenderName());
+        $mail->setMessageId($_helper->generateMessageId($this->getSenderEmail()));
 
         try {
 
