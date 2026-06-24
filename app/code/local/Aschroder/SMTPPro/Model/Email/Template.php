@@ -110,9 +110,9 @@ class Aschroder_SMTPPro_Model_Email_Template extends Mage_Core_Model_Email_Templ
         }
 
         if($this->isPlain()) {
-            $mail->setBodyText($text);
+            $mail->setBodyText($text, 'utf-8', Zend_Mime::ENCODING_QUOTEDPRINTABLE);
         } else {
-            $mail->setBodyHTML($text);
+            $mail->setBodyHtml($text, 'utf-8', Zend_Mime::ENCODING_QUOTEDPRINTABLE);
         }
 
         $mail->setSubject('=?utf-8?B?' . base64_encode($subject) . '?=');
