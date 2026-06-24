@@ -204,7 +204,7 @@ class Aschroder_SMTPPro_Helper_Data extends Mage_Core_Helper_Abstract
 
     public function generateMessageId($senderEmail)
     {
-        return '<' . time() . '.' . uniqid('', true) . '@' . $this->getMessageIdDomain($senderEmail) . '>';
+        return time() . '.' . uniqid('', true) . '@' . $this->getMessageIdDomain($senderEmail);
     }
 
 
