@@ -183,6 +183,10 @@ class Aschroder_SMTPPro_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return Mage::getStoreConfig('smtppro/queue/pause', $storeId);
     }
+    public function getCharset($storeId = null)
+    {
+        return Mage::getStoreConfigFlag('smtppro/charset/utf8', $storeId) ? 'UTF-8' : null;
+    }
 
 
     // These are not the droids you're looking for...

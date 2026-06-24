@@ -102,7 +102,8 @@ class Aschroder_SMTPPro_Smtp_TestController extends Mage_Adminhtml_Controller_Ac
 
         $to = Mage::getStoreConfig('contacts/email/recipient_email', $websiteModel->getId());
 
-        $mail = new Zend_Mail();
+        $charset = $_helper->getCharset($websiteModel->getId());
+        $mail = new Zend_Mail($charset);
         $sub = $_helper->__("Test Email From SMTP Pro Magento Extension");
         $body =
                 "Hi,\n\n" .
@@ -115,7 +116,7 @@ class Aschroder_SMTPPro_Smtp_TestController extends Mage_Adminhtml_Controller_Ac
         $mail->addTo($to)
                 ->setFrom($this->TEST_EMAIL)
                 ->setSubject($sub)
-                ->setBodyText($body);
+                ->setBodyText($body, $charset, Zend_Mime::ENCODING_QUOTEDPRINTABLE);
 
         $_helper->log($_helper->__("Actual email sending test..."));
         $msg = $msg . "<br/>". $_helper->__("Sending test email to your contact form address: ") . $to . $_helper->__(" from: {$this->TEST_EMAIL}. ");
@@ -267,4 +268,3 @@ class Aschroder_SMTPPro_Smtp_TestController extends Mage_Adminhtml_Controller_Ac
     }
 
 }
-

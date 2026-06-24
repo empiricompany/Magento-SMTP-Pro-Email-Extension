@@ -26,6 +26,7 @@ class Aschroder_SMTPPro_Model_Email_Template extends Mage_Core_Model_Email_Templ
     {
 
         $_helper = Mage::helper('smtppro');
+        $charset = $_helper->getCharset();
         // If it's not enabled, just return the parent result.
         if (!$_helper->isEnabled()) {
             $_helper->log('SMTP Pro is not enabled, fall back to parent class');
@@ -109,10 +110,10 @@ class Aschroder_SMTPPro_Model_Email_Template extends Mage_Core_Model_Email_Templ
             $mail->addTo($email, '=?utf-8?B?' . base64_encode($names[$key]) . '?=');
         }
 
-        if($this->isPlain()) {
-            $mail->setBodyText($text);
+        if ($this->isPlain()) {
+            $mail->setBodyText($text, $charset, Zend_Mime::ENCODING_QUOTEDPRINTABLE);
         } else {
-            $mail->setBodyHTML($text);
+            $mail->setBodyHtml($text, $charset, Zend_Mime::ENCODING_QUOTEDPRINTABLE);
         }
 
         $mail->setSubject('=?utf-8?B?' . base64_encode($subject) . '?=');
