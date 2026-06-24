@@ -55,7 +55,8 @@ class Aschroder_SMTPPro_Model_Email_Queue extends Mage_Core_Model_Email_Queue {
                     Zend_Mail::setDefaultTransport($mailTransport);
                 }
 
-                $mailer = new Zend_Mail('utf-8');
+                $charset = $_helper->getCharset();
+                $mailer = new Zend_Mail($charset);
                 foreach ($message->getRecipients() as $recipient) {
                     list($email, $name, $type) = $recipient;
                     switch ($type) {
@@ -71,9 +72,9 @@ class Aschroder_SMTPPro_Model_Email_Queue extends Mage_Core_Model_Email_Queue {
                 }
 
                 if ($parameters->getIsPlain()) {
-                    $mailer->setBodyText($message->getMessageBody());
+                    $mailer->setBodyText($message->getMessageBody(), $charset, Zend_Mime::ENCODING_QUOTEDPRINTABLE);
                 } else {
-                    $mailer->setBodyHTML($message->getMessageBody());
+                    $mailer->setBodyHtml($message->getMessageBody(), $charset, Zend_Mime::ENCODING_QUOTEDPRINTABLE);
                 }
 
                 $mailer->setSubject('=?utf-8?B?' . base64_encode($parameters->getSubject()) . '?=');
